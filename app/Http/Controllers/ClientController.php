@@ -40,7 +40,7 @@ class ClientController extends Controller
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:clients,email',
-                'status' => 'required|in:0,1',
+                'status' => 'required|string|in:active,inactive',
             ]);
 
             // Add new client
@@ -75,7 +75,7 @@ class ClientController extends Controller
              $validated = $request->validate([
                 'name' => 'sometimes|string|max:255',
                 'email' => 'sometimes|email|unique:clients,email,' . $id,
-                'status' => 'required|in:0,1',
+                'status' => 'required|string|in:active,inactive',
             ]);
 
             $updated = $this->clientService->updateClient($id, $validated);
