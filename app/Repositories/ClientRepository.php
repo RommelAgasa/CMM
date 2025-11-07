@@ -34,7 +34,7 @@ class ClientRepository implements IClientRepository{
      * @return User|\Illuminate\Database\Eloquent\Collection<int, User>
      */
     public function updateClient($id, array $data){
-        $user = User::findOrFail($id);
+        $user = Client::findOrFail($id);
         $user->update($data);
         return $user;
     }

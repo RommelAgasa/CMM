@@ -2,25 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\IClientService;
 use App\Models\Client;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
+    protected $clientService;
+
+    public function __construct(IClientService $clientService){
+        $this->clientService = $clientService;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
+        $clients = $this->clientService->getAllClient();
+        return response()->json([
+            'success' => true,
+            'data' => $clients
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -28,38 +35,69 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        try{
+            // Validate request
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:clients,email',
+                'status' => 'required|in:0,1',
+            ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Client $client)
-    {
-        //
-    }
+            // Add new client
+            $client = $this->clientService->addNewClient($validated);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Client $client)
-    {
-        //
+            return response()->json([
+                'message' => 'Client created successfully!',
+                'data' => $client,
+            ], 201);
+        }
+        catch(ValidationException $e){
+            return response()->json([
+                'message' => 'Validation failed.',
+                'errors' => $e->errors(),
+            ], 422);
+        }
+        catch(\Exception $e){
+            Log::error('Unexepected error: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'An unexpected error occured',
+            ]);
+        }
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, $id)
     {
-        //
+        try{
+             $validated = $request->validate([
+                'name' => 'sometimes|string|max:255',
+                'email' => 'sometimes|email|unique:clients,email,' . $id,
+                'status' => 'required|in:0,1',
+            ]);
+
+            $updated = $this->clientService->updateClient($id, $validated);
+
+            return response()->json([
+                'message' => 'Client updated successfully!',
+                'data' => $updated,
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $e->errors(),
+            ], 422); // Status : Unprocessable Entity
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Client $client)
+    public function destroy($id)
     {
-        //
+        $this->clientService->deleteClient($id);
+        return response()->json(['message' => 'Client deleted successfully'], 200);
     }
 }
