@@ -16,6 +16,44 @@ class ClientController extends Controller
         $this->clientService = $clientService;
     }
 
+    /**
+     * Answer to Question #3
+     */
+
+    public function storeClientDetails(Request $request)
+    {
+        try{
+            // Validate request
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:clients,email',
+                'status' => 'required|string|in:active,inactive',
+            ]);
+
+            // Add new client
+            $client = $this->clientService->addNewClient($validated);
+
+            return response()->json([
+                'success' => 'Client created successfully!',
+                'data' => $client,
+            ], 201);
+        }
+        catch(ValidationException $e){
+            return response()->json([
+                'message' => 'Validation failed.',
+                'errors' => $e->errors(),
+            ], 422);
+        }
+        catch(\Exception $e){
+            Log::error('Unexepected error: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'An unexpected error occured',
+            ]);
+        }
+
+    }
+
+    // -------------------------------------------------------------------------------------    
 
     /**
      * Display a listing of the resource.
