@@ -1,4 +1,4 @@
-<img width="1917" height="1016" alt="delete" src="https://github.com/user-attachments/assets/8ca482d3-cc1f-4cb6-a454-457399460876" /><img width="1918" height="1025" alt="getAllClient" src="https://github.com/user-attachments/assets/453760c9-9558-43da-9677-98086980e58c" /># CMM (Client Management Module)
+## CMM (Client Management Module)
 
 This is a Laravel-based client management system that provides API endpoints for managing client information.
 
