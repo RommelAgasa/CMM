@@ -1,4 +1,4 @@
-# CMM (Client Management Module)
+<img width="1917" height="1016" alt="delete" src="https://github.com/user-attachments/assets/8ca482d3-cc1f-4cb6-a454-457399460876" /><img width="1918" height="1025" alt="getAllClient" src="https://github.com/user-attachments/assets/453760c9-9558-43da-9677-98086980e58c" /># CMM (Client Management Module)
 
 This is a Laravel-based client management system that provides API endpoints for managing client information.
 
@@ -59,10 +59,25 @@ This is a Laravel-based client management system that provides API endpoints for
 ## API Endpoints
 
 - GET `/api/clients` - Get all clients
+    <img width="1918" height="1025" alt="getAllClient" src="https://github.com/user-attachments/assets/fae503b8-a419-457f-a669-da63d6402ce2" />
+  
 - POST `/api/clients` - Create a new client
-- GET `/api/clients/{id}` - Get a specific client
+    <img width="1918" height="995" alt="store" src="https://github.com/user-attachments/assets/1d6d3a0e-99ae-4bd2-9f4a-00b623cdb36b" />
+
 - PUT `/api/clients/{id}` - Update a client
+    <img width="1918" height="1022" alt="update" src="https://github.com/user-attachments/assets/3db6990e-7061-4ebd-b6da-fa481bcef99c" />
+
+    
 - DELETE `/api/clients/{id}` - Delete a client
+    <img width="1917" height="1016" alt="delete" src="https://github.com/user-attachments/assets/cbb32cec-aba0-4034-9a54-a436d90a4d13" />
+
+
+## Web (Filter Functionality)
+- http://127.0.0.1:8000/
+<img width="1918" height="976" alt="filter-all" src="https://github.com/user-attachments/assets/8da7f83a-6075-424a-8889-82e7ecbc4bcd" />
+<img width="1918" height="970" alt="filter-active" src="https://github.com/user-attachments/assets/21a4da6b-6bae-4703-9fb4-9880d7212a3a" />
+<img width="1918" height="967" alt="filter-inactive" src="https://github.com/user-attachments/assets/46dd7674-7290-47f1-b850-3def8b789fe7" />
+
 
 ## Project Structure
 
