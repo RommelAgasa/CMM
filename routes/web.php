@@ -1,10 +1,9 @@
 <?php
 
+use App\Http\Controllers\FilterController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FilterController::class, 'index'])->name('filter.index');
 
 
 /** Answer to Question # 2 */
